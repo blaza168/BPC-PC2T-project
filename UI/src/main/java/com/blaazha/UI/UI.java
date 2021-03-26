@@ -1,7 +1,6 @@
 package com.blaazha.UI;
 
 import com.blaazha.UI.action.Action;
-import com.blaazha.UI.action.impl.CreateStudentAction;
 import com.blaazha.UI.screen.Screen;
 import com.blaazha.UI.util.ScreenUtil;
 
@@ -16,6 +15,7 @@ public class UI {
     private final Screen actionsScreen;
 
     private final Action createStudentAction;
+    private final Action createTeacherAction;
 
     private final Scanner scanner;
 
@@ -25,12 +25,14 @@ public class UI {
             @Named("end") Screen endScreen,
             @Named("actions") Screen actionsScreen,
             @Named("create-student") Action createStudentAction,
+            @Named("create-teacher") Action createTeacherAction,
             Scanner scanner
     ) {
         this.welcomeScreen = welcomeScreen;
         this.endScreen = endScreen;
         this.actionsScreen = actionsScreen;
         this.createStudentAction = createStudentAction;
+        this.createTeacherAction = createTeacherAction;
         this.scanner = scanner;
     }
 
@@ -51,6 +53,9 @@ public class UI {
             switch (option) {
                 case 1:
                     createStudentAction.run();
+                    break;
+                case 2:
+                    createTeacherAction.run();
                     break;
             }
         }

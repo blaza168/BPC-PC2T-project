@@ -1,3 +1,4 @@
+-- Yep, its duplicate, but I don't want to program roles ... :P
 CREATE TABLE students (
                            id                INT auto_increment PRIMARY KEY NOT NULL,
                            first_name        VARCHAR(50)    NOT NULL,

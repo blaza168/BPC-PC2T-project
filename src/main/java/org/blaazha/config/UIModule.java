@@ -2,6 +2,7 @@ package org.blaazha.config;
 
 import com.blaazha.UI.action.Action;
 import com.blaazha.UI.action.impl.CreateStudentAction;
+import com.blaazha.UI.action.impl.CreateTeacherAction;
 import com.blaazha.UI.screen.Screen;
 import com.blaazha.UI.screen.impl.ActionsScreen;
 import com.blaazha.UI.screen.impl.EndScreen;
@@ -24,5 +25,6 @@ public class UIModule extends AbstractModule {
 
         // actions
         bind(Action.class).annotatedWith(Names.named("create-student")).to(CreateStudentAction.class);
+        bind(Action.class).annotatedWith(Names.named("create-teacher")).to(CreateTeacherAction.class);
     }
 }

@@ -42,7 +42,7 @@ public class LoadPersonSubaction {
 
         while (date == null) {
             try {
-                System.out.print("Enter date in format 'dd mm yyyy': ");;
+                System.out.print("Enter date in format 'dd mm yyyy': ");
                 date = dateFormat.parse(scanner.nextLine());
             } catch (ParseException e) {
                 System.out.println("WRONG FORMAT!!! TRY IT AGAIN!!");

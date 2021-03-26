@@ -8,6 +8,7 @@ public class ActionsScreen implements Screen {
         System.out.println("Tell me, what do you want to do here ?\n" +
                 "You have only these options:\n" +
                 "1 --- create student\n" +
+                "2 --- create teacher\n" +
                 "9 --- exit (best option)");
     }
 }

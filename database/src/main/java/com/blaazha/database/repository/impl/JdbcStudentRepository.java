@@ -15,19 +15,19 @@ import org.skife.jdbi.v2.util.IntegerColumnMapper;
 
 import javax.inject.Inject;
 import java.util.Collection;
-import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Slf4j
 public class JdbcStudentRepository implements StudentRepository {
 
-    private static Joiner COMMA_JOINER = Joiner.on(",").skipNulls();
+    private static final Joiner COMMA_JOINER = Joiner.on(",").skipNulls();
 
-    private static ResultSetMapper<Student> STUDENT_MAPPER = (i, rs, ctx) ->
-        new Student(rs.getInt("id"),
-                rs.getString("first_name"),
-                rs.getString("last_name"),
-                rs.getDate("birth"));
+    private static final ResultSetMapper<Student.StudentBuilder> STUDENT_BUILDER_MAPPER = (i, rs, ctx) ->
+        Student.builder().id(rs.getInt("id"))
+                .firstname(rs.getString("first_name"))
+                .surname(rs.getString("last_name"))
+                .birth(rs.getDate("birth"));
 
     private final DBI dbi;
 
@@ -46,7 +46,7 @@ public class JdbcStudentRepository implements StudentRepository {
                     .executeAndReturnGeneratedKeys(IntegerColumnMapper.PRIMITIVE)
                     .first();
 
-            return this.getStudent(insertedId);
+            return this.getStudent(insertedId).build();
         } catch (Exception e) {
             log.error("Creating student failed", e);
             throw e;
@@ -54,11 +54,11 @@ public class JdbcStudentRepository implements StudentRepository {
     }
 
     @Override
-    public Student getStudent(int id) {
+    public Student.StudentBuilder getStudent(int id) {
         try (Handle h = dbi.open()) {
             return h.createQuery("SELECT * FROM students WHERE id = :id")
                     .bind("id", id)
-                    .map(STUDENT_MAPPER)
+                    .map(STUDENT_BUILDER_MAPPER)
                     .first();
         } catch (Exception e) {
             log.error("Retrieving student failed", e);
@@ -78,7 +78,7 @@ public class JdbcStudentRepository implements StudentRepository {
                 position++;
             }
 
-            return query.map(STUDENT_MAPPER).list();
+            return query.map(STUDENT_BUILDER_MAPPER).list().stream().map(Student.StudentBuilder::build).collect(Collectors.toList());
         } catch (Exception e) {
             log.error("Retrieving students failed", e);
             throw e;

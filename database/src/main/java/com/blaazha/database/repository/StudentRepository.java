@@ -8,7 +8,7 @@ import java.util.Collection;
 public interface StudentRepository {
 
     Student createStudent(CreatePersonRequest request);
-    Student getStudent(int id);
+    Student.StudentBuilder getStudent(int id);
     Collection<Student> getStudents(Collection<Integer> ids);
     Collection<Student> getStudentsByStudyAverage(Collection<Integer> studentIds);
     void deleteStudent(int id);
