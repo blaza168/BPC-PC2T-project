@@ -12,6 +12,7 @@ public class ActionsScreen implements Screen {
                 "3 --- add mark to student\n" +
                 "4 --- remove student\n" +
                 "5 --- remove teacher\n" +
+                "6 --- list teachers assigned to student\n" +
                 "9 --- exit (best option)");
     }
 }

@@ -1,18 +1,26 @@
 package com.blaazha.database.repository.impl;
 
+import com.blaaazha.domain.models.Student;
 import com.blaaazha.domain.models.Teacher;
 import com.blaazha.database.repository.TeacherRepository;
 import com.blaazha.database.request.CreatePersonRequest;
 import com.blaazha.database.util.SQLDateUtil;
+import com.google.common.base.Joiner;
 import lombok.extern.slf4j.Slf4j;
 import org.skife.jdbi.v2.DBI;
 import org.skife.jdbi.v2.Handle;
+import org.skife.jdbi.v2.Query;
 import org.skife.jdbi.v2.tweak.ResultSetMapper;
 import org.skife.jdbi.v2.util.IntegerColumnMapper;
 import javax.inject.Inject;
+import java.util.Collection;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Slf4j
 public class JdbcTeacherRepository implements TeacherRepository {
+
+    private static final Joiner COMMA_JOINER = Joiner.on(",").skipNulls();
 
     private static final ResultSetMapper<Teacher.TeacherBuilder> TEACHER_BUILDER_MAPPER = (i, rs, ctx) ->
             Teacher.builder().id(rs.getInt("id"))
@@ -59,6 +67,25 @@ public class JdbcTeacherRepository implements TeacherRepository {
                     .first();
         } catch (Exception e) {
             log.error("Retrieving student failed", e);
+            throw e;
+        }
+    }
+
+    @Override
+    public Collection<Teacher> getTeachers(Collection<Integer> ids) {
+        try (Handle h = dbi.open()) {
+            Query<Map<String, Object>> query = h.createQuery("SELECT * FROM teachers WHERE id IN (" +
+                    COMMA_JOINER.join(ids.size(), "?") + ")");
+
+            int position = 0;
+            for (int id: ids) {
+                query.bind(position, id);
+                position++;
+            }
+
+            return query.map(TEACHER_MAPPER).list();
+        } catch (Exception e) {
+            log.error("Retrieving students failed", e);
             throw e;
         }
     }

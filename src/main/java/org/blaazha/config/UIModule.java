@@ -28,5 +28,6 @@ public class UIModule extends AbstractModule {
         bind(Action.class).annotatedWith(Names.named("mark")).to(AddMarkAction.class);
         bind(Action.class).annotatedWith(Names.named("remove-student")).to(RemoveStudentAction.class);
         bind(Action.class).annotatedWith(Names.named("remove-teacher")).to(RemoveTeacherAction.class);
+        bind(Action.class).annotatedWith(Names.named("student-teachers")).to(StudentsTeachersAction.class);
     }
 }

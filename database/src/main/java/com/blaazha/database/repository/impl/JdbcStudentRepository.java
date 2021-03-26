@@ -69,7 +69,7 @@ public class JdbcStudentRepository implements StudentRepository {
     @Override
     public Collection<Student> getStudents(Collection<Integer> ids) {
         try (Handle h = dbi.open()) {
-            Query<Map<String, Object>> query = h.createQuery("SELECT * FROM students WHERE students IN (" +
+            Query<Map<String, Object>> query = h.createQuery("SELECT * FROM students WHERE id IN (" +
                     COMMA_JOINER.join(ids.size(), "?") + ")");
 
             int position = 0;

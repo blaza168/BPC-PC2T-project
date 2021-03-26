@@ -6,6 +6,7 @@ import com.blaazha.database.repository.TeacherRepository;
 import com.blaazha.database.request.CreatePersonRequest;
 import org.blaazha.application.service.TeacherService;
 import javax.inject.Inject;
+import java.util.Collection;
 import java.util.Date;
 
 public class TeacherServiceImpl implements TeacherService {
@@ -33,6 +34,12 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public void deleteTeacher(int id) {
         this.teacherRepository.deleteTeacher(id);
+    }
+
+    @Override
+    public Collection<Teacher> getStudentsTeacher(int studentId) {
+        Collection<Integer> teacherIds = this.studentTeacherJoinRepository.getStudentTeachers(studentId);
+        return this.teacherRepository.getTeachers(teacherIds);
     }
 
     @Override

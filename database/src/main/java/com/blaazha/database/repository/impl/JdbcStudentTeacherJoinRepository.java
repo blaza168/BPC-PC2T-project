@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
+import java.util.Collection;
 
 public class JdbcStudentTeacherJoinRepository implements StudentTeacherJoinRepository {
 
@@ -41,6 +42,19 @@ public class JdbcStudentTeacherJoinRepository implements StudentTeacherJoinRepos
                     .bind("student_id", studentId)
                     .bind("teacher_id", teacherId)
                     .execute();
+        } catch (Exception e) {
+            log.error("Removing assignment failed", e);
+            throw e;
+        }
+    }
+
+    @Override
+    public Collection<Integer> getStudentTeachers(int studentId) {
+        try (Handle h = dbi.open()) {
+                return h.createQuery("SELECT teacher_id FROM students_teachers WHERE student_id = :student_id")
+                    .bind("student_id", studentId)
+                    .mapTo(Integer.class)
+                    .list();
         } catch (Exception e) {
             log.error("Removing assignment failed", e);
             throw e;

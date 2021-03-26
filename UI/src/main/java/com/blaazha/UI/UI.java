@@ -19,6 +19,7 @@ public class UI {
     private final Action markAction;
     private final Action removeStudentAction;
     private final Action removeTeacherAction;
+    private final Action studentTeachersAction;
 
     private final Scanner scanner;
 
@@ -32,6 +33,7 @@ public class UI {
             @Named("mark") Action markAction,
             @Named("remove-student") Action removeStudentAction,
             @Named("remove-teacher") Action removeTeacherAction,
+            @Named("student-teachers") Action studentTeachersAction,
             Scanner scanner
     ) {
         this.welcomeScreen = welcomeScreen;
@@ -42,6 +44,7 @@ public class UI {
         this.markAction = markAction;
         this.removeStudentAction = removeStudentAction;
         this.removeTeacherAction = removeTeacherAction;
+        this.studentTeachersAction = studentTeachersAction;
         this.scanner = scanner;
     }
 
@@ -74,6 +77,9 @@ public class UI {
                     break;
                 case 5:
                     removeTeacherAction.run();
+                    break;
+                case 6:
+                    studentTeachersAction.run();
                     break;
             }
         }
