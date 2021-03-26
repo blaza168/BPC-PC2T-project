@@ -22,6 +22,8 @@ public class UI {
     private final Action studentTeachersAction;
     private final Action assignStudentAction;
     private final Action unassignStudentAction;
+    private final Action studentDetailsAction;
+    private final Action teacherDetailsAction;
 
     private final Scanner scanner;
 
@@ -38,6 +40,8 @@ public class UI {
             @Named("student-teachers") Action studentTeachersAction,
             @Named("assign-student") Action assignStudentAction,
             @Named("unassign-student") Action unassignStudentAction,
+            @Named("detail-student") Action studentDetailsAction,
+            @Named("detail-teacher") Action teacherDetailsAction,
             Scanner scanner
     ) {
         this.welcomeScreen = welcomeScreen;
@@ -51,6 +55,8 @@ public class UI {
         this.studentTeachersAction = studentTeachersAction;
         this.assignStudentAction = assignStudentAction;
         this.unassignStudentAction = unassignStudentAction;
+        this.studentDetailsAction = studentDetailsAction;
+        this.teacherDetailsAction = teacherDetailsAction;
         this.scanner = scanner;
     }
 
@@ -92,6 +98,12 @@ public class UI {
                     break;
                 case 8:
                     unassignStudentAction.run();
+                    break;
+                case 9:
+                    studentDetailsAction.run();
+                    break;
+                case 10:
+                    teacherDetailsAction.run();
                     break;
             }
         }

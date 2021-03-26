@@ -5,11 +5,14 @@ import com.blaazha.database.repository.StudentRepository;
 import com.blaazha.database.request.CreatePersonRequest;
 import com.blaazha.database.request.student.AddMarkRequest;
 import org.blaazha.application.service.StudentService;
+import org.blaazha.application.viewmodel.StudentViewModel;
 
 import javax.inject.Inject;
 import java.util.Date;
 
 public class StudentServiceImpl implements StudentService {
+
+    private static final int SCHOLARSHIP = 5000;
 
     private final StudentRepository studentRepository;
 
@@ -33,5 +36,14 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public void deleteStudent(int id) {
         this.studentRepository.deleteStudent(id);
+    }
+
+    @Override
+    public StudentViewModel getStudentDetails(int studentId) {
+        Student student = this.studentRepository.getStudent(studentId).build();
+        float studyAvg = this.studentRepository.getStudentStudyAverage(studentId);
+        int money = studyAvg <= 1.5 ? SCHOLARSHIP : 0;
+
+        return new StudentViewModel(student.getId(), student.getFirstname(), student.getSurname(), student.getBirth(), money);
     }
 }

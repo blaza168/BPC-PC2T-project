@@ -4,6 +4,7 @@ import com.blaaazha.domain.models.Student;
 import com.blaazha.database.request.CreatePersonRequest;
 import com.blaazha.database.request.student.AddMarkRequest;
 import java.util.Collection;
+import java.util.Map;
 
 public interface StudentRepository {
 
@@ -12,6 +13,9 @@ public interface StudentRepository {
     Collection<Student> getStudents(Collection<Integer> ids);
     Collection<Student> getStudentsByStudyAverage(Collection<Integer> studentIds);
     void deleteStudent(int id);
+
+    Map<Integer, Float> getStudentsStudyAverage(Collection<Integer> studentIds);
+    float getStudentStudyAverage(int studentId);
 
     void addStudentMark(AddMarkRequest request);
 }

@@ -10,8 +10,8 @@ import java.util.Date;
 
 @Getter
 public class Student extends Person {
-    private final ImmutableList<Teacher> teachers;
-    private final ImmutableList<Integer> marks;
+    protected final ImmutableList<Teacher> teachers;
+    protected final ImmutableList<Integer> marks;
 
     public Student(int id, String firstname, String surname, Date birth) {
         this(id, firstname, surname, birth, null, null);

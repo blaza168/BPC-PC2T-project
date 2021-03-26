@@ -56,7 +56,20 @@ public class JdbcStudentTeacherJoinRepository implements StudentTeacherJoinRepos
                     .mapTo(Integer.class)
                     .list();
         } catch (Exception e) {
-            log.error("Removing assignment failed", e);
+            log.error("Getting students ids failed", e);
+            throw e;
+        }
+    }
+
+    @Override
+    public Collection<Integer> getTeachersStudents(int teacherId) {
+        try (Handle h = dbi.open()) {
+            return h.createQuery("SELECT student_id FROM students_teachers WHERE teacher_id = :teacher_id")
+                    .bind("teacher_id", teacherId)
+                    .mapTo(Integer.class)
+                    .list();
+        } catch (Exception e) {
+            log.error("Getting teachers ids failed", e);
             throw e;
         }
     }

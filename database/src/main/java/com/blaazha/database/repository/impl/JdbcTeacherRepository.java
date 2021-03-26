@@ -14,6 +14,7 @@ import org.skife.jdbi.v2.tweak.ResultSetMapper;
 import org.skife.jdbi.v2.util.IntegerColumnMapper;
 import javax.inject.Inject;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -75,7 +76,7 @@ public class JdbcTeacherRepository implements TeacherRepository {
     public Collection<Teacher> getTeachers(Collection<Integer> ids) {
         try (Handle h = dbi.open()) {
             Query<Map<String, Object>> query = h.createQuery("SELECT * FROM teachers WHERE id IN (" +
-                    COMMA_JOINER.join(ids.size(), "?") + ")");
+                    COMMA_JOINER.join(Collections.nCopies(ids.size(), "?")) + ")");
 
             int position = 0;
             for (int id: ids) {
