@@ -23,6 +23,7 @@ dependencies {
     compile project(":domain")
     compile group: 'ch.qos.logback', name: 'logback-classic', version: versions.logback
 
+    compile group: 'com.google.inject', name: 'guice', version: '5.0.1' // cheat
     compile group: 'org.flywaydb', name: 'flyway-core', version: versions.flyway
     compile group: 'org.apache.commons', name: 'commons-dbcp2', version: versions.dbcp2
     compile group: 'org.jdbi', name: 'jdbi', version: versions.jdbi

@@ -9,16 +9,16 @@ import java.util.Date;
 
 @Getter
 public class Student extends Person {
-    private final float average;
     private final ImmutableList<Teacher> teachers;
+    private final ImmutableList<Integer> marks;
 
-    public Student(int id, String firstname, String surname, Date birth, float average) {
-        this(id, firstname, surname, birth, average, null);
+    public Student(int id, String firstname, String surname, Date birth) {
+        this(id, firstname, surname, birth, null, null);
     }
 
-    public Student(int id, String firstname, String surname, Date birth,  float average, @Nullable Collection<Teacher> teachers) {
+    public Student(int id, String firstname, String surname, Date birth, @Nullable Collection<Teacher> teachers, @Nullable Collection<Integer> marks) {
         super(id, firstname, surname, birth);
-        this.average = average;
         this.teachers = teachers == null ? ImmutableList.of() : ImmutableList.copyOf(teachers);
+        this.marks = marks == null ? ImmutableList.of() : ImmutableList.copyOf(marks);
     }
 }

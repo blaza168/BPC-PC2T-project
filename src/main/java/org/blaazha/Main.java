@@ -11,7 +11,7 @@ public class Main {
     public static void main(String[] args) {
         Injector injector = Guice.createInjector(new DataModule());
 
-        // Flyway cannot find migrations ...
+//         Flyway cannot find migrations ...
 //        Flyway flyway = new Flyway();
 //        flyway.setDataSource(injector.getInstance(DataSource.class));
 //        flyway.migrate();
