@@ -6,4 +6,5 @@ import com.blaazha.database.request.CreatePersonRequest;
 public interface TeacherRepository {
     Teacher createTeacher(CreatePersonRequest request);
     Teacher.TeacherBuilder getTeacher(int id);
+    void deleteTeacher(int id);
 }

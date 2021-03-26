@@ -29,4 +29,9 @@ public class StudentServiceImpl implements StudentService {
         AddMarkRequest request = new AddMarkRequest(studentId, mark);
         this.studentRepository.addStudentMark(request);
     }
+
+    @Override
+    public void deleteStudent(int id) {
+        this.studentRepository.deleteStudent(id);
+    }
 }

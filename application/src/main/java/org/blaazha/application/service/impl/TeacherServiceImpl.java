@@ -31,6 +31,11 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
+    public void deleteTeacher(int id) {
+        this.teacherRepository.deleteTeacher(id);
+    }
+
+    @Override
     public void assignStudent(int teacherId, int studentId) {
         this.studentTeacherJoinRepository.addStudentToTeacher(studentId, teacherId);
     }

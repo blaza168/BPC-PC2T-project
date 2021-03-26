@@ -10,6 +10,8 @@ public class ActionsScreen implements Screen {
                 "1 --- create student\n" +
                 "2 --- create teacher\n" +
                 "3 --- add mark to student\n" +
+                "4 --- remove student\n" +
+                "5 --- remove teacher\n" +
                 "9 --- exit (best option)");
     }
 }

@@ -112,7 +112,7 @@ public class JdbcStudentRepository implements StudentRepository {
     @Override
     public void deleteStudent(int id) {
         try (Handle h = dbi.open()) {
-            h.update("DELETE * FROM students WHERE id = ?", id);
+            h.update("DELETE FROM students WHERE id = ?", id);
         } catch (Exception e) {
             log.error("Deleting student failed", e);
             throw e;

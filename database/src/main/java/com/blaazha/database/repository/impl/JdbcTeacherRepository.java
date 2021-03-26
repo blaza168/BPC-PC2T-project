@@ -63,4 +63,14 @@ public class JdbcTeacherRepository implements TeacherRepository {
         }
     }
 
+    @Override
+    public void deleteTeacher(int id) {
+        try (Handle h = dbi.open()) {
+            h.update("DELETE FROM teachers WHERE id = ?", id);
+        } catch (Exception e) {
+            log.error("Deleting teacher failed", e);
+            throw e;
+        }
+    }
+
 }
