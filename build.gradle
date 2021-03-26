@@ -1,0 +1,42 @@
+plugins {
+    id 'java'
+    id "com.github.johnrengelman.shadow" version "2.0.2"
+}
+
+apply plugin: 'com.github.johnrengelman.shadow'
+
+def versions = [
+        'guice': '5.0.1',
+]
+
+group 'org.blaazha'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile project(":application")
+    compile group: 'com.google.inject', name: 'guice', version: versions.guice
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+
+shadowJar {
+    manifest {
+        attributes(
+                'Main-Class': 'org.blaazha.Main',
+                'Class-Path': "config/ ./"
+        )
+    }
+    exclude("config")
+}
+
+build.dependsOn shadowJar
