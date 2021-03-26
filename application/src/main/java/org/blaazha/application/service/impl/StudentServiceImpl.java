@@ -3,6 +3,7 @@ package org.blaazha.application.service.impl;
 import com.blaaazha.domain.models.Student;
 import com.blaazha.database.repository.StudentRepository;
 import com.blaazha.database.request.CreatePersonRequest;
+import com.blaazha.database.request.student.AddMarkRequest;
 import org.blaazha.application.service.StudentService;
 
 import javax.inject.Inject;
@@ -21,5 +22,11 @@ public class StudentServiceImpl implements StudentService {
     public Student createStudent(String firstname, String lastname, Date birth) {
         final CreatePersonRequest request = new CreatePersonRequest(firstname, lastname, birth);
         return studentRepository.createStudent(request);
+    }
+
+    @Override
+    public void addMark(int studentId, int mark) {
+        AddMarkRequest request = new AddMarkRequest(studentId, mark);
+        this.studentRepository.addStudentMark(request);
     }
 }

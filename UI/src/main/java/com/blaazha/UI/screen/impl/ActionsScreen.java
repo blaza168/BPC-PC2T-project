@@ -9,6 +9,7 @@ public class ActionsScreen implements Screen {
                 "You have only these options:\n" +
                 "1 --- create student\n" +
                 "2 --- create teacher\n" +
+                "3 --- add mark to student\n" +
                 "9 --- exit (best option)");
     }
 }
