@@ -10,6 +10,7 @@ repositories {
 }
 
 def versions = [
+        logback: '1.2.3',
         flyway: '5.0.7',
         dbcp2: '2.1.1',
         jdbi: '2.78',
@@ -18,6 +19,9 @@ def versions = [
 ]
 
 dependencies {
+
+    compile project(":domain")
+    compile group: 'ch.qos.logback', name: 'logback-classic', version: versions.logback
 
     compile group: 'org.flywaydb', name: 'flyway-core', version: versions.flyway
     compile group: 'org.apache.commons', name: 'commons-dbcp2', version: versions.dbcp2

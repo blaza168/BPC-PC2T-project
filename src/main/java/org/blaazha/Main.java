@@ -1,21 +1,21 @@
 package org.blaazha;
 
-import com.blaazha.database.config.PersistenceConfig;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import org.aeonbits.owner.ConfigFactory;
-import org.blaazha.application.TestService;
+import org.blaazha.config.DataModule;
+import org.flywaydb.core.Flyway;
+import javax.sql.DataSource;
+
 
 public class Main {
     public static void main(String[] args) {
-        Injector injector = Guice.createInjector();
+        Injector injector = Guice.createInjector(new DataModule());
 
-        TestService testService = injector.getInstance(TestService.class);
+        // Flyway cannot find migrations ...
+//        Flyway flyway = new Flyway();
+//        flyway.setDataSource(injector.getInstance(DataSource.class));
+//        flyway.migrate();
 
-        PersistenceConfig persistenceConfig = ConfigFactory.create(PersistenceConfig.class);
-
-        System.out.println(persistenceConfig.url());
-
-        System.out.println(testService.test());
+        System.out.println("Program finished successfully");
     }
 }
