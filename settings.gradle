@@ -2,4 +2,5 @@ rootProject.name = 'project_BPC2'
 include 'application'
 include 'database'
 include 'domain'
+include 'UI'
 
