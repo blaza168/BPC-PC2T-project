@@ -21,4 +21,9 @@ public class Student extends Person {
         this.teachers = teachers == null ? ImmutableList.of() : ImmutableList.copyOf(teachers);
         this.marks = marks == null ? ImmutableList.of() : ImmutableList.copyOf(marks);
     }
+
+    @Override
+    public String toString() {
+        return "Student{firstname=" + getFirstname() + ",lastname=" + getSurname() + ",birth" + getBirth() + "}";
+    }
 }
