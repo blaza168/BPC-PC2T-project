@@ -1,11 +1,9 @@
 package org.blaazha.config;
 
 import com.blaazha.database.config.PersistenceConfig;
-import com.blaazha.database.repository.StudentMarksRepository;
 import com.blaazha.database.repository.StudentRepository;
 import com.blaazha.database.repository.StudentTeacherJoinRepository;
 import com.blaazha.database.repository.TeacherRepository;
-import com.blaazha.database.repository.impl.JdbcStudentMarksRepository;
 import com.blaazha.database.repository.impl.JdbcStudentRepository;
 import com.blaazha.database.repository.impl.JdbcStudentTeacherJoinRepository;
 import com.blaazha.database.repository.impl.JdbcTeacherRepository;
@@ -36,7 +34,6 @@ public class DataModule extends AbstractModule {
         bind(StudentRepository.class).to(JdbcStudentRepository.class);
         bind(TeacherRepository.class).to(JdbcTeacherRepository.class);
         bind(StudentTeacherJoinRepository.class).to(JdbcStudentTeacherJoinRepository.class);
-        bind(StudentMarksRepository.class).to(JdbcStudentMarksRepository.class);
     }
 
     private DataSource buildDataSource(PersistenceConfig config) {

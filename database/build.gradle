@@ -23,6 +23,9 @@ dependencies {
     compile project(":domain")
     compile group: 'ch.qos.logback', name: 'logback-classic', version: versions.logback
 
+    compileOnly 'org.projectlombok:lombok:1.18.16'
+    annotationProcessor 'org.projectlombok:lombok:1.18.16'
+
     compile group: 'com.google.inject', name: 'guice', version: '5.0.1' // cheat
     compile group: 'org.flywaydb', name: 'flyway-core', version: versions.flyway
     compile group: 'org.apache.commons', name: 'commons-dbcp2', version: versions.dbcp2
