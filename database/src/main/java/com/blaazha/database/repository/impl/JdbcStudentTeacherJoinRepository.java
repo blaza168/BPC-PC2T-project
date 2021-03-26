@@ -38,7 +38,7 @@ public class JdbcStudentTeacherJoinRepository implements StudentTeacherJoinRepos
     @Override
     public void removeStudentFromTeacher(int studentId, int teacherId) {
         try (Handle h = dbi.open()) {
-            h.createStatement("DELETE FROM students_teachers WHERE student_id = :student_id, teacher_id = :teacher_id")
+            h.createStatement("DELETE FROM students_teachers WHERE student_id = :student_id AND teacher_id = :teacher_id")
                     .bind("student_id", studentId)
                     .bind("teacher_id", teacherId)
                     .execute();

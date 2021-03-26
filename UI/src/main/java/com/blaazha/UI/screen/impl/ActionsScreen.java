@@ -13,6 +13,8 @@ public class ActionsScreen implements Screen {
                 "4 --- remove student\n" +
                 "5 --- remove teacher\n" +
                 "6 --- list teachers assigned to student\n" +
-                "9 --- exit (best option)");
+                "7 --- assign student to teacher\n" +
+                "8 --- remove student from teacher\n" +
+                "15 --- exit (best option)");
     }
 }

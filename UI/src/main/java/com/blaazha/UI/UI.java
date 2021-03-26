@@ -20,6 +20,8 @@ public class UI {
     private final Action removeStudentAction;
     private final Action removeTeacherAction;
     private final Action studentTeachersAction;
+    private final Action assignStudentAction;
+    private final Action unassignStudentAction;
 
     private final Scanner scanner;
 
@@ -34,6 +36,8 @@ public class UI {
             @Named("remove-student") Action removeStudentAction,
             @Named("remove-teacher") Action removeTeacherAction,
             @Named("student-teachers") Action studentTeachersAction,
+            @Named("assign-student") Action assignStudentAction,
+            @Named("unassign-student") Action unassignStudentAction,
             Scanner scanner
     ) {
         this.welcomeScreen = welcomeScreen;
@@ -45,6 +49,8 @@ public class UI {
         this.removeStudentAction = removeStudentAction;
         this.removeTeacherAction = removeTeacherAction;
         this.studentTeachersAction = studentTeachersAction;
+        this.assignStudentAction = assignStudentAction;
+        this.unassignStudentAction = unassignStudentAction;
         this.scanner = scanner;
     }
 
@@ -56,7 +62,7 @@ public class UI {
 
         int option = 0;
 
-        while (option != 9) {
+        while (option != 15) {
             actionsScreen.display();
 
             option = scanner.nextInt();
@@ -80,6 +86,12 @@ public class UI {
                     break;
                 case 6:
                     studentTeachersAction.run();
+                    break;
+                case 7:
+                    assignStudentAction.run();
+                    break;
+                case 8:
+                    unassignStudentAction.run();
                     break;
             }
         }
