@@ -20,6 +20,7 @@ public class ActionsScreen implements Screen {
                 "11 -- list teachers\n" +
                 "12 -- list teachers sorted by lastname\n" +
                 "13 -- list students sorted by lastname\n" +
+                "14 -- get budget for 1 month\n" +
                 "15 --- exit (best option)");
     }
 }

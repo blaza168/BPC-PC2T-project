@@ -27,6 +27,7 @@ public class UI {
     private final Action listTeachersAction;
     private final Action surnameSortedStudentListAction;
     private final Action surnameSortedTeachersListAction;
+    private final Action budgetInfoAction;
 
     private final Scanner scanner;
 
@@ -48,6 +49,7 @@ public class UI {
             @Named("list-teachers") Action listTeachersAction,
             @Named("surname-students") Action surnameSortedStudentListAction,
             @Named("surname-teachers") Action surnameSortedTeachersListAction,
+            @Named("budget") Action budgetInfoAction,
             Scanner scanner
     ) {
         this.welcomeScreen = welcomeScreen;
@@ -66,6 +68,7 @@ public class UI {
         this.listTeachersAction = listTeachersAction;
         this.surnameSortedStudentListAction = surnameSortedStudentListAction;
         this.surnameSortedTeachersListAction = surnameSortedTeachersListAction;
+        this.budgetInfoAction = budgetInfoAction;
         this.scanner = scanner;
     }
 
@@ -122,6 +125,9 @@ public class UI {
                     break;
                 case 13:
                     surnameSortedTeachersListAction.run();
+                    break;
+                case 14:
+                    budgetInfoAction.run();
                     break;
             }
         }

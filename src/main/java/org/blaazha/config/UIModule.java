@@ -16,11 +16,12 @@ public class UIModule extends AbstractModule {
     @Override
     protected void configure() {
 
+        bind(Scanner.class).toInstance(new Scanner(System.in));
+
         // screens
         bind(Screen.class).annotatedWith(Names.named("welcome")).to(WelcomeScreen.class);
         bind(Screen.class).annotatedWith(Names.named("end")).to(EndScreen.class);
         bind(Screen.class).annotatedWith(Names.named("actions")).to(ActionsScreen.class);
-        bind(Scanner.class).toInstance(new Scanner(System.in));
 
         // actions
         bind(Action.class).annotatedWith(Names.named("create-student")).to(CreateStudentAction.class);
@@ -36,5 +37,6 @@ public class UIModule extends AbstractModule {
         bind(Action.class).annotatedWith(Names.named("list-teachers")).to(ListTeachersAction.class);
         bind(Action.class).annotatedWith(Names.named("surname-teachers")).to(SurnameSortedTeacherListAction.class);
         bind(Action.class).annotatedWith(Names.named("surname-students")).to(SurnameSortedStudentListAction.class);
+        bind(Action.class).annotatedWith(Names.named("budget")).to(BudgetInfoAction.class);
     }
 }
