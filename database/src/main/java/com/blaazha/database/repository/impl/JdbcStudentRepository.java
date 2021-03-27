@@ -96,6 +96,19 @@ public class JdbcStudentRepository implements StudentRepository {
     }
 
     @Override
+    public List<Student> listStudentsSurnameSorted() {
+        try (Handle h = dbi.open()) {
+            return h.createQuery("SELECT * FROM students ORDER BY last_name")
+                    .map(STUDENT_BUILDER_MAPPER)
+                    .list()
+                    .stream().map(Student.StudentBuilder::build).collect(Collectors.toList());
+        } catch (Exception e) {
+            log.error("Retrieving sorted students failed", e);
+            throw e;
+        }
+    }
+
+    @Override
     public Collection<Student> getStudentsByStudyAverage(Collection<Integer> studentIds) {
 //        try (Handle h = dbi.open()) {
 //            Query<Map<String, Object>> query = h.createQuery("SELECT id FROM student_marks " +

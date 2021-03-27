@@ -73,7 +73,8 @@ public class TeacherServiceImpl implements TeacherService {
     public TeacherViewModel getTeacherDetails(int teacherId) {
         Teacher teacher = this.teacherRepository.getTeacher(teacherId).build();
         Collection<Integer> studentsIds = this.studentTeacherJoinRepository.getTeachersStudents(teacherId);
-        Map<Integer, Float> studentsStudyAvg = this.studentRepository.getStudentsStudyAverage(studentsIds);
+        Map<Integer, Float> studentsStudyAvg = studentsIds.size() != 0 ? this.studentRepository.getStudentsStudyAverage(studentsIds)
+                : Collections.emptyMap();
         int money = 0;
 
         for (Map.Entry<Integer, Float> entry: studentsStudyAvg.entrySet()) {
@@ -111,6 +112,19 @@ public class TeacherServiceImpl implements TeacherService {
 
         return new TeacherViewModel(teacher.getId(), teacher.getFirstname(),
                 teacher.getSurname(), teacher.getBirth(), teacher.getStudents(), money);
+    }
+
+    @Override
+    public List<TeacherViewModel> getTeachersSortedByLastname() {
+        List<Teacher> teachers = this.teacherRepository.listTeachersLastnameSorted();
+        List<TeacherViewModel> teacherViewModels = new ArrayList<>();
+
+        // this is self killing
+        for (Teacher teacher: teachers) {
+            teacherViewModels.add(this.getTeacherDetails(teacher.getId()));
+        }
+
+        return teacherViewModels;
     }
 
     @Override

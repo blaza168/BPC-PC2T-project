@@ -1,6 +1,7 @@
 package org.blaazha.application.service.impl;
 
 import com.blaaazha.domain.models.Student;
+import com.blaaazha.domain.models.base.Person;
 import com.blaazha.database.repository.StudentRepository;
 import com.blaazha.database.repository.StudentTeacherJoinRepository;
 import com.blaazha.database.request.CreatePersonRequest;
@@ -9,8 +10,8 @@ import org.blaazha.application.service.StudentService;
 import org.blaazha.application.viewmodel.StudentViewModel;
 
 import javax.inject.Inject;
-import java.util.Collection;
-import java.util.Date;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class StudentServiceImpl implements StudentService {
 
@@ -40,6 +41,22 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public void deleteStudent(int id) {
         this.studentRepository.deleteStudent(id);
+    }
+
+    @Override
+    public List<StudentViewModel> listStudentsSortedByLastname() {
+        List<Student> students = this.studentRepository.listStudentsSurnameSorted();
+        Collection<Integer> studentIds = students.stream().map(Person::getId).collect(Collectors.toList());
+        Map<Integer, Float> studyAvg = this.studentRepository.getStudentsStudyAverage(studentIds);
+
+        List<StudentViewModel> result = new ArrayList<>();
+
+        for (Student student: students) {
+            int money = studyAvg.get(student.getId()) <= 1.5 ? SCHOLARSHIP : 0;
+            result.add(new StudentViewModel(student.getId(), student.getFirstname(), student.getSurname(), student.getBirth(), money));
+        }
+
+        return result;
     }
 
     @Override

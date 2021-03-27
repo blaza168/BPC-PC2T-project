@@ -1,6 +1,5 @@
 package com.blaazha.database.repository.impl;
 
-import com.blaaazha.domain.models.Student;
 import com.blaaazha.domain.models.Teacher;
 import com.blaazha.database.repository.TeacherRepository;
 import com.blaazha.database.request.CreatePersonRequest;
@@ -15,8 +14,8 @@ import org.skife.jdbi.v2.util.IntegerColumnMapper;
 import javax.inject.Inject;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Slf4j
 public class JdbcTeacherRepository implements TeacherRepository {
@@ -100,6 +99,18 @@ public class JdbcTeacherRepository implements TeacherRepository {
                     .list();
         } catch (Exception e) {
             log.error("Listing teachers failed", e);
+            throw e;
+        }
+    }
+
+    @Override
+    public List<Teacher> listTeachersLastnameSorted() {
+        try (Handle h = dbi.open()) {
+            return h.createQuery("SELECT * FROM teachers ORDER BY last_name")
+                    .map(TEACHER_MAPPER)
+                    .list();
+        } catch (Exception e) {
+            log.error("Retrieving sorted teachers failed", e);
             throw e;
         }
     }

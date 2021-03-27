@@ -18,6 +18,8 @@ public class ActionsScreen implements Screen {
                 "9 --- show student details\n" +
                 "10 -- show teacher details\n" +
                 "11 -- list teachers\n" +
+                "12 -- list teachers sorted by lastname\n" +
+                "13 -- list students sorted by lastname\n" +
                 "15 --- exit (best option)");
     }
 }

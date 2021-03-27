@@ -5,6 +5,7 @@ import org.blaazha.application.viewmodel.TeacherViewModel;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 public interface TeacherService {
     Teacher createTeacher(String firstname, String lastname, Date birth);
@@ -31,6 +32,8 @@ public interface TeacherService {
      * @return
      */
     TeacherViewModel getTeacherWithStudents(int teacherId);
+
+    List<TeacherViewModel> getTeachersSortedByLastname();
 
 
     void assignStudent(int teacherId, int studentId);
