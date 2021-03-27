@@ -1,5 +1,6 @@
 package com.blaazha.UI.action.impl;
 
+import com.blaaazha.domain.models.Student;
 import com.blaazha.UI.action.Action;
 import org.blaazha.application.service.TeacherService;
 import org.blaazha.application.viewmodel.StudentViewModel;
@@ -28,8 +29,13 @@ public class TeacherDetailsAction implements Action {
         int teacherId = scanner.nextInt();
         scanner.nextLine();
 
-        TeacherViewModel teacherDetails = this.teacherService.getTeacherDetails(teacherId);
+        TeacherViewModel teacherDetails = this.teacherService.getTeacherWithStudents(teacherId);
 
         System.out.println(teacherDetails);
+
+        System.out.println("Students: ");
+        for (Student student: teacherDetails.getStudents()) {
+            System.out.println(student);
+        }
     }
 }

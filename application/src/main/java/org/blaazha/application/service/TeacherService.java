@@ -25,6 +25,13 @@ public interface TeacherService {
     Collection<Teacher> getStudentsTeacher(int studentId);
     TeacherViewModel getTeacherDetails(int teacherId);
 
+    /**
+     * Get teacher with students sorted by their study avg
+     * @param teacherId
+     * @return
+     */
+    TeacherViewModel getTeacherWithStudents(int teacherId);
+
 
     void assignStudent(int teacherId, int studentId);
     void removeStudent(int teacherId, int studentId);

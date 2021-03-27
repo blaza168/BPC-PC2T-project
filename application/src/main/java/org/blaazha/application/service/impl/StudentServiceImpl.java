@@ -2,12 +2,14 @@ package org.blaazha.application.service.impl;
 
 import com.blaaazha.domain.models.Student;
 import com.blaazha.database.repository.StudentRepository;
+import com.blaazha.database.repository.StudentTeacherJoinRepository;
 import com.blaazha.database.request.CreatePersonRequest;
 import com.blaazha.database.request.student.AddMarkRequest;
 import org.blaazha.application.service.StudentService;
 import org.blaazha.application.viewmodel.StudentViewModel;
 
 import javax.inject.Inject;
+import java.util.Collection;
 import java.util.Date;
 
 public class StudentServiceImpl implements StudentService {
@@ -15,10 +17,12 @@ public class StudentServiceImpl implements StudentService {
     private static final int SCHOLARSHIP = 5000;
 
     private final StudentRepository studentRepository;
+    private final StudentTeacherJoinRepository studentTeacherJoinRepository;
 
     @Inject
-    public StudentServiceImpl(StudentRepository studentRepository) {
+    public StudentServiceImpl(StudentRepository studentRepository, StudentTeacherJoinRepository studentTeacherJoinRepository) {
         this.studentRepository = studentRepository;
+        this.studentTeacherJoinRepository = studentTeacherJoinRepository;
     }
 
     @Override

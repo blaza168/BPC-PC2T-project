@@ -1,21 +1,31 @@
 package org.blaazha.application.service.impl;
 
+import com.blaaazha.domain.models.Student;
 import com.blaaazha.domain.models.Teacher;
 import com.blaazha.database.repository.StudentRepository;
 import com.blaazha.database.repository.StudentTeacherJoinRepository;
 import com.blaazha.database.repository.TeacherRepository;
 import com.blaazha.database.request.CreatePersonRequest;
+import lombok.AllArgsConstructor;
 import org.blaazha.application.service.TeacherService;
 import org.blaazha.application.viewmodel.TeacherViewModel;
 import javax.inject.Inject;
-import java.util.Collection;
-import java.util.Date;
-import java.util.Map;
+import java.util.*;
 
 public class TeacherServiceImpl implements TeacherService {
 
     private final static int STUDENT_MONEY = 2000;
     private final static int SCHOLARSHIP_BONUS = 500;
+
+    @AllArgsConstructor
+    private static final class StudentByStudyAvgComparator implements Comparator<Student> {
+        private final Map<Integer, Float> studyAvg;
+
+        @Override
+        public int compare(Student o1, Student o2) {
+            return studyAvg.get(o1.getId()).compareTo(studyAvg.get(o2.getId()));
+        }
+    }
 
     private final TeacherRepository teacherRepository;
     private final StudentTeacherJoinRepository studentTeacherJoinRepository;
@@ -75,6 +85,32 @@ public class TeacherServiceImpl implements TeacherService {
         }
 
         return new TeacherViewModel(teacher.getId(), teacher.getFirstname(), teacher.getSurname(), teacher.getBirth(), money);
+    }
+
+    @Override
+    public TeacherViewModel getTeacherWithStudents(int teacherId) {
+        Teacher.TeacherBuilder teacherBuilder = this.teacherRepository.getTeacher(teacherId);
+        Collection<Integer> studentsIds = this.studentTeacherJoinRepository.getTeachersStudents(teacherId);
+        ArrayList<Student> students = new ArrayList<>(this.studentRepository.getStudents(studentsIds));
+        Map<Integer, Float> studyAvg = this.studentRepository.getStudentsStudyAverage(studentsIds);
+
+        students.sort(new StudentByStudyAvgComparator(studyAvg));
+        teacherBuilder.students(students);
+        Teacher teacher = teacherBuilder.build();
+
+        // move this to separate method
+        int money = 0;
+
+        for (Map.Entry<Integer, Float> entry: studyAvg.entrySet()) {
+            money += STUDENT_MONEY;
+
+            if (entry.getValue() <= 1.5) {
+                money += SCHOLARSHIP_BONUS;
+            }
+        }
+
+        return new TeacherViewModel(teacher.getId(), teacher.getFirstname(),
+                teacher.getSurname(), teacher.getBirth(), teacher.getStudents(), money);
     }
 
     @Override

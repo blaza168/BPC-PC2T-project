@@ -26,6 +26,11 @@ public class Student extends Person {
 
     @Override
     public String toString() {
-        return "Student{firstname=" + getFirstname() + ",lastname=" + getSurname() + ",birth" + getBirth() + "}";
+        return "Student{" +
+                "id=" + id +
+                ", firstname='" + firstname + '\'' +
+                ", surname='" + surname + '\'' +
+                ", birth=" + birth +
+                '}';
     }
 }

@@ -5,6 +5,7 @@ import com.google.common.collect.ImmutableList;
 import lombok.Builder;
 import lombok.Getter;
 import javax.annotation.Nullable;
+import java.util.Collection;
 import java.util.Date;
 
 @Getter
@@ -17,7 +18,7 @@ public class Teacher extends Person {
     }
 
     @Builder
-    public Teacher(int id, String firstname, String surname, Date birth,  @Nullable ImmutableList<Student> students) {
+    public Teacher(int id, String firstname, String surname, Date birth,  @Nullable Collection<Student> students) {
         super(id, firstname, surname, birth);
         this.students = students == null ? ImmutableList.of() : ImmutableList.copyOf(students);
     }
