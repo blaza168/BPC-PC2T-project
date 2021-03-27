@@ -9,5 +9,6 @@ public interface TeacherRepository {
     Teacher createTeacher(CreatePersonRequest request);
     Teacher.TeacherBuilder getTeacher(int id);
     Collection<Teacher> getTeachers(Collection<Integer> ids);
+    Collection<Teacher> listTeachers();
     void deleteTeacher(int id);
 }

@@ -44,6 +44,11 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
+    public Collection<Teacher> getTeachers() {
+        return this.teacherRepository.listTeachers();
+    }
+
+    @Override
     public void deleteTeacher(int id) {
         this.teacherRepository.deleteTeacher(id);
     }

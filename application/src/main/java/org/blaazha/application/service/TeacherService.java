@@ -9,9 +9,22 @@ import java.util.Date;
 public interface TeacherService {
     Teacher createTeacher(String firstname, String lastname, Date birth);
     Teacher getTeacher(int id);
+
+    /**
+     * Get list of teachers sorted by number of students
+     * @return
+     */
+    Collection<Teacher> getTeachers();
     void deleteTeacher(int id);
+
+    /**
+     * Return teachers for student
+     * @param studentId
+     * @return
+     */
     Collection<Teacher> getStudentsTeacher(int studentId);
     TeacherViewModel getTeacherDetails(int teacherId);
+
 
     void assignStudent(int teacherId, int studentId);
     void removeStudent(int teacherId, int studentId);

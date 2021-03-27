@@ -86,7 +86,20 @@ public class JdbcTeacherRepository implements TeacherRepository {
 
             return query.map(TEACHER_MAPPER).list();
         } catch (Exception e) {
-            log.error("Retrieving students failed", e);
+            log.error("Retrieving teachers failed", e);
+            throw e;
+        }
+    }
+
+    @Override
+    public Collection<Teacher> listTeachers() {
+        try (Handle h = dbi.open()) {
+            return h.createQuery("SELECT id, first_name, last_name, birth FROM teachers " +
+                    "ORDER BY (SELECT COUNT(*) FROM students_teachers WHERE teacher_id = teachers.id) DESC")
+                    .map(TEACHER_MAPPER)
+                    .list();
+        } catch (Exception e) {
+            log.error("Listing teachers failed", e);
             throw e;
         }
     }
